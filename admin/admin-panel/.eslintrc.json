@@ -1,7 +1,8 @@
 {
   "extends": [
-    "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+
     "plugin:react-hooks/recommended"
   ],
   "plugins": ["react", "react-hooks"],
@@ -17,6 +18,9 @@
     "es2020": true
   },
   "rules": {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "warn",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-uses-react": "error"
   }
 }

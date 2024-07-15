@@ -254,7 +254,6 @@ const getUserForPortfolio = asyncHandler(async (req, res) => {
 const forgetPassword = asyncHandler(async (req, res) => {
   // find user with email
   const user = await User.findOne({ email: req.body.email });
-  if (!user) throw new ApiError(404, "User not found");
 
   //generate reset password token
   const resetToken = user.getPasswordResetToken();
@@ -262,7 +261,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
   await user.save({ validateBeforeSave: false });
 
   // create url for reset password
-  const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
+  const resetPasswordUrl = `${process.env.DASHBOARD_URL}/password/reset/${resetToken}`;
 
   // message for mail
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\n If you have not requested this email then, please ignore it.`;
