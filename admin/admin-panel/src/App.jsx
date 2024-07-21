@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -11,8 +11,24 @@ import ManageProjects from "./pages/ManageProjects";
 import ManageTimeline from "./pages/ManageTimeline";
 import ViewProjects from "./pages/ViewProjects";
 import UpdateProjects from "./pages/UpdateProjects";
+import { useDispatch } from "react-redux";
+import { getLoggedUser } from "./redux/actions/userAction";
+import { getAllMessages } from "./redux/actions/messageAction";
+import { getAllTimeline } from "./redux/actions/timelineAction";
+import { getAllSkills } from "./redux/actions/skillAction";
+import { getAllApplication } from "./redux/actions/applicationAction";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getLoggedUser(dispatch);
+    dispatch(getAllMessages());
+    dispatch(getAllTimeline());
+    dispatch(getAllSkills());
+    dispatch(getAllApplication());
+  });
+
   return (
     <>
       <BrowserRouter>

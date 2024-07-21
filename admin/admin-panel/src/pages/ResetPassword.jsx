@@ -7,18 +7,22 @@ import userLoginImage from "@/assets/images/user-login.jpg";
 import Spinner from "@/components/sub-components/spinner";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAllError, resetPassword } from "@/redux/actions/userAction";
+import {
+  resetPassword,
+  clearAllForgotPasswordError,
+} from "@/redux/actions/forgotPasswordAction";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const dispatch = useDispatch();
-  const { isLoading, isError, isAuthenticated } = useSelector(
+
+  const { isLoading, isError, isAuthenticated, message } = useSelector(
     (state) => state.user
   );
+  const dispatch = useDispatch();
 
   const { token } = useParams();
-  console.log(token);
+
   const navigate = useNavigate();
 
   const handleResetPassword = (e) => {
@@ -31,7 +35,8 @@ const ResetPassword = () => {
       toast.error("Passwords do not match");
       return;
     }
-    resetPassword(dispatch, token, password, confirmPassword);
+    // resetPassword(dispatch, token, password, confirmPassword);
+    dispatch(resetPassword(token, password, confirmPassword));
     toast.success(
       "Password reset successfully! Please login with new password"
     );
@@ -41,12 +46,12 @@ const ResetPassword = () => {
   useEffect(() => {
     if (isError) {
       toast.error(isError.message);
-      clearAllError(dispatch);
+      clearAllForgotPasswordError(dispatch);
     }
 
     if (isAuthenticated) {
       toast.success("User logged in successfully");
-      navigate("/login");
+      navigate("/");
     }
   }, [dispatch, isError, isAuthenticated, navigate, token]);
 

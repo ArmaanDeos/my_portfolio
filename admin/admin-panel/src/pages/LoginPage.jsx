@@ -19,7 +19,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { currentUser, isError, isAuthenticated, isLoading } = useSelector(
+  const { isError, isAuthenticated, isLoading } = useSelector(
     (state) => state.user
   );
 
@@ -30,7 +30,7 @@ const LoginPage = () => {
       return;
     }
     const user = { email, password };
-    loginUser(dispatch, user);
+    dispatch(loginUser(user));
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const LoginPage = () => {
       toast.success("User logged in successfully");
       navigate("/");
     }
-  }, [dispatch, isError, isAuthenticated, navigate, isLoading, currentUser]);
+  }, [dispatch, isError, isAuthenticated, navigate, isLoading]);
 
   return (
     <>

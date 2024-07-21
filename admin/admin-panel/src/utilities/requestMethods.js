@@ -1,20 +1,52 @@
 import axios from "axios";
 
-// const BASE_URI = "https://rymo-shop-api.onrender.com/api/v1";
-const BASE_URI = "http://localhost:1700/api/v1";
-const TOKEN =
-  JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
-    ?.access_token || null;
+// Base URL for the API
+const BaseURL = "http://localhost:1700/api/v1";
 
+// Function to get the access token from local storage
+const getToken = () => {
+  try {
+    const persistedState = localStorage.getItem("persist:root");
+    if (persistedState) {
+      const parsedState = JSON.parse(persistedState);
+      const userState = JSON.parse(parsedState.user);
+      return userState.user?.access_token || null;
+    }
+  } catch (error) {
+    console.error("Failed to parse persisted state:", error);
+    return null;
+  }
+};
+
+// Initial token value
+let TOKEN = getToken();
 console.log(TOKEN);
 
-// Public Request
-export const publicRequest = axios.create({
-  baseURL: BASE_URI,
+// Axios instance for public requests (no auth required)
+const publicRequest = axios.create({
+  baseURL: BaseURL,
 });
 
-// User Request
-export const userRequest = axios.create({
-  baseURL: BASE_URI,
-  headers: { token: `Bearer ${TOKEN}` },
+// Axios instance for user requests (auth required)
+const userRequest = axios.create({
+  baseURL: BaseURL,
+  headers: {
+    Authorization: `Bearer ${TOKEN}`,
+  },
 });
+
+// Interceptor to update the token dynamically
+userRequest.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+export { publicRequest, userRequest };

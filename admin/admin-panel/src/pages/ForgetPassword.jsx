@@ -1,36 +1,50 @@
+// In your ForgetPassword.jsx component
+
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import userLoginImage from "@/assets/images/user-login.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { clearAllError, forgetPassword } from "@/redux/actions/userAction";
+import {
+  clearAllForgotPasswordError,
+  forgetPassword,
+} from "@/redux/actions/forgotPasswordAction";
 import Spinner from "@/components/sub-components/spinner";
+
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const { isLoading, isError, message } = useSelector((state) => state.user);
+  const { isLoading, isError, message, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+  const navigate = useNavigate();
 
   const handleForgetPassword = (e) => {
     e.preventDefault();
-
     if (!email) {
-      toast.error("All fields are required");
+      toast.error("Email is required");
       return;
     }
 
-    forgetPassword(dispatch, { email });
-    toast.success(`Password reset link sent to your email address ${email}`);
+    dispatch(forgetPassword(email)); // Pass email directly to forgetPassword action
+    setEmail(""); // Clear email input after submission
   };
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
-      clearAllError(dispatch);
+      clearAllForgotPasswordError(dispatch);
     }
-  }, [dispatch, isError, message]);
+    if (isAuthenticated) {
+      navigate("/");
+    }
+    if (message) {
+      toast.success(message);
+    }
+  }, [dispatch, isError, message, isAuthenticated, navigate]);
 
   return (
     <>

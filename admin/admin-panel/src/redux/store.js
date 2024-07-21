@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import userSlice from "./reducers/userSlice";
+import userReducer from "./reducers/userSlice";
+
 import {
   persistStore,
   persistReducer,
@@ -11,6 +12,11 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import forgotResetPasswordSlice from "./reducers/forgotResetPasswordSlice";
+import messageSlice from "./reducers/messageSlice";
+import timelineSlice from "./reducers/timelineSlice";
+import skillSlice from "./reducers/skillSlice";
+import applicationSlice from "./reducers/applicationSlice";
 
 const persistConfig = {
   key: "root",
@@ -19,7 +25,12 @@ const persistConfig = {
 };
 
 const rootReducers = combineReducers({
-  user: userSlice,
+  user: userReducer,
+  forgotPassword: forgotResetPasswordSlice,
+  messages: messageSlice,
+  timeline: timelineSlice,
+  skill: skillSlice,
+  application: applicationSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

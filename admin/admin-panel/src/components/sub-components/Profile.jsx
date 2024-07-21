@@ -6,9 +6,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
 const Profile = () => {
-  const { currentUser } = useSelector((state) => state.user);
-  const user = currentUser.user;
-  console.log(user);
+  const { user } = useSelector((state) => state.user.user);
 
   return (
     <>

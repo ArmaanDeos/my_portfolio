@@ -13,9 +13,7 @@ import {
   LogOut,
   MessageCircleCode,
   Package,
-  PanelLeft,
   PencilRuler,
-  PieChart,
   User,
 } from "lucide-react";
 
@@ -48,9 +46,8 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isAuthenticated, isError, currentUser } = useSelector(
-    (state) => state.user
-  );
+  const { isAuthenticated, isError, user } = useSelector((state) => state.user);
+  console.log(user);
 
   const handleLogout = async () => {
     await logoutUser(dispatch);
@@ -66,7 +63,7 @@ const HomePage = () => {
     if (!isAuthenticated) {
       navigate("/login");
     }
-  }, [isAuthenticated, isError, dispatch, navigate]);
+  }, [isError, isAuthenticated, navigate, dispatch]);
 
   return (
     <>
@@ -229,11 +226,11 @@ const HomePage = () => {
         <header className="sticky top-0 z-30  h-14 flex-col border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 max-[900]:[100px]">
           <Sheet>
             <SheetTrigger asChild>
-              <Button size="icon" varient="outline" className="sm:hidden mt-2">
-                <PanelLeft className="h-5 w-5">
-                  <span className="sr-only">Toggle Menu</span>
-                </PanelLeft>
-              </Button>
+              <Button
+                size="icon"
+                varient="outline"
+                className="sm:hidden mt-2"
+              ></Button>
             </SheetTrigger>
             <SheetContent side="left" className="sm:max-w-xs ">
               <nav className="grid gap-6 text-lg font-medium">
@@ -340,13 +337,19 @@ const HomePage = () => {
             </SheetContent>
           </Sheet>
 
-          <div className="flex items-center gap-4 md:grow-0 sm:ml-16 sm:mt-5">
-            <img
-              src={currentUser.user?.avatar.url}
-              alt="avatar"
-              className="h-20 w-20 rounded-full max-[900px]:hidden "
-            />
-            <h1>Welcome Back, {currentUser.user.fullName}</h1>
+          <div className="flex items-center gap-4 md:grow-0 sm:ml-16 sm:mt-4">
+            {user && user.user?.avatar && user.user?.avatar.url ? (
+              <img
+                src={user && user.user?.avatar.url}
+                alt="avatar"
+                className="h-20 w-20 rounded-full max-[900px]:hidden "
+              />
+            ) : (
+              <div className="h-20 w-20 rounded-full bg-gray-200 max-[900px]:hidden" />
+            )}
+            <h1 className="text-3xl font-semibold">
+              Welcome Back, {user && user.user?.fullName}
+            </h1>
           </div>
         </header>
         {(() => {

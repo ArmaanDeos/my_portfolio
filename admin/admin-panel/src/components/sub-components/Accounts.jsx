@@ -5,7 +5,7 @@ import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 
 const Accounts = () => {
-  const [selectedComponent, setSelectedComponent] = useState("Accounts");
+  const [selectedComponent, setSelectedComponent] = useState("Profile");
   return (
     <>
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">

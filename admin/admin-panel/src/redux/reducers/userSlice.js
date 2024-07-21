@@ -3,134 +3,127 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    currentUser: null,
+    user: null,
     isLoading: false,
     isError: false,
+    message: "",
     isAuthenticated: false,
     isUpdated: false,
-    message: "",
   },
+
   reducers: {
-    loginStart: (state) => {
+    loginRequest: (state, action) => {
       state.isLoading = true;
-      state.currentUser = null;
       state.isAuthenticated = false;
-      state.isError = null;
-      state.message = "Data is Loading...";
+      state.user = null;
+      state.isError = false;
+      state.message = "";
     },
     loginSuccess: (state, action) => {
       state.isLoading = false;
-      state.currentUser = action.payload;
       state.isAuthenticated = true;
-      state.isError = null;
-      state.message = "User Login Successfully!";
+      state.user = action.payload;
+      state.isError = false;
+      state.message = action.payload.message;
     },
     loginFail: (state, action) => {
       state.isLoading = false;
-      state.currentUser = null;
       state.isAuthenticated = false;
+      state.user = null;
       state.isError = action.payload;
-      state.message = "User Login Failed!";
     },
-    logoutUserRequest: (state, action) => {
-      state.currentUser = null;
+    loggedUserRequest: (state, action) => {
+      state.isLoading = true;
       state.isAuthenticated = false;
-      state.isError = null;
+      state.user = null;
+      state.isError = false;
+    },
+    loggedUserSuccess: (state, action) => {
+      state.isLoading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload;
+      state.isError = false;
+    },
+    loggedUserFail: (state, action) => {
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+      state.isError = action.payload;
+    },
+
+    logoutUserSuccess: (state, action) => {
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+      state.isError = false;
       state.message = action.payload;
     },
     logoutUserFail: (state, action) => {
-      state.currentUser = null;
-      state.isAuthenticated = false;
+      state.isLoading = false;
+      state.isAuthenticated = state.isAuthenticated;
+      state.user = state.user;
       state.isError = action.payload;
-      state.message = action.payload;
     },
-    updatePasswordRequest: (state) => {
+
+    updatePasswordRequest: (state, action) => {
       state.isLoading = true;
       state.isUpdated = false;
-      state.isError = null;
-      state.message = "Data is Loading...";
+      state.message = "";
+      state.isError = false;
     },
     updatePasswordSuccess: (state, action) => {
       state.isLoading = false;
       state.isUpdated = true;
-      state.isError = null;
       state.message = action.payload;
+      state.isError = false;
     },
     updatePasswordFail: (state, action) => {
       state.isLoading = false;
       state.isUpdated = false;
+      state.message = "";
       state.isError = action.payload;
-      state.message = action.payload;
     },
-    updateProfileRequest: (state) => {
+
+    updateProfileRequest: (state, action) => {
       state.isLoading = true;
       state.isUpdated = false;
-      state.isError = null;
-      state.message = "Data is Loading...";
+      state.message = "";
+      state.isError = false;
     },
     updateProfileSuccess: (state, action) => {
       state.isLoading = false;
       state.isUpdated = true;
-      state.isError = null;
       state.message = action.payload;
+      state.isError = false;
     },
     updateProfileFail: (state, action) => {
       state.isLoading = false;
       state.isUpdated = false;
-      state.isError = action.payload;
-      state.message = action.payload;
-    },
-
-    forgetPasswordRequest: (state) => {
-      state.isLoading = true;
-      state.isUpdated = false;
-      state.isError = null;
-      state.message = "Data is Loading...";
-    },
-    forgetPasswordSuccess: (state, action) => {
-      state.isLoading = false;
-      state.isUpdated = false;
-      state.isError = null;
-      state.message = action.payload;
-    },
-    forgetPasswordFail: (state, action) => {
-      state.isLoading = false;
-      state.isUpdated = false;
-      state.isError = action.payload;
-      state.message = action.payload;
-    },
-    resetPasswordRequest: (state) => {
-      state.isLoading = true;
-      state.isUpdated = false;
-      state.isError = null;
-      state.message = "Data is Loading...";
-    },
-    resetPasswordSuccess: (state, action) => {
-      state.isLoading = false;
-      state.isUpdated = true; // Assuming this should be true on success
-      state.isError = null;
-      state.message = action.payload; // Assuming payload is a message or data object
-    },
-    resetPasswordFail: (state, action) => {
-      state.isLoading = false;
-      state.isUpdated = false;
-      state.isError = action.payload; // Ensure action.payload is serializable
-      state.message = action.payload.message || "An error occurred."; // Example fallback message
-    },
-
-    clearErrors: (state) => {
-      state.isError = null;
       state.message = "";
+      state.isError = action.payload;
+    },
+
+    ResetProfileAfterUpdateRequest: (state, action) => {
+      state.isError = false;
+      state.isUpdated = false;
+      state.message = "";
+    },
+
+    clearErrors: (state, action) => {
+      state.isError = null;
+      state.user = state.user;
     },
   },
 });
 
 export const {
-  loginStart,
+  loginRequest,
   loginSuccess,
   loginFail,
-  clearErrors,
-  logoutUserRequest,
+  loggedUserRequest,
+  loggedUserSuccess,
+  loggedUserFail,
+  logoutUserSuccess,
   logoutUserFail,
   updatePasswordRequest,
   updatePasswordSuccess,
@@ -138,11 +131,8 @@ export const {
   updateProfileRequest,
   updateProfileSuccess,
   updateProfileFail,
-  forgetPasswordRequest,
-  forgetPasswordSuccess,
-  forgetPasswordFail,
-  resetPasswordRequest,
-  resetPasswordSuccess,
-  resetPasswordFail,
+  ResetProfileAfterUpdateRequest,
+  clearErrors,
 } = userSlice.actions;
+
 export default userSlice.reducer;
