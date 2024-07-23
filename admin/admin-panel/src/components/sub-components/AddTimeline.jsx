@@ -25,7 +25,7 @@ const AddTimeline = () => {
 
   const handleAddNewTimeline = (e) => {
     e.preventDefault();
-    if (!title || !description || !from || !to) {
+    if (!title || !description || !from) {
       toast.error("All fields are required");
       return;
     }
@@ -123,7 +123,7 @@ const AddTimeline = () => {
                       <input
                         type="date"
                         placeholder="Ending Year"
-                        value={to}
+                        value={to ? to : "Present"}
                         onChange={(e) => setTo(e.target.value)}
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       />
