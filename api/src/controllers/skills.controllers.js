@@ -9,7 +9,9 @@ import { v2 as cloudinary } from "cloudinary";
 const getSkill = asyncHandler(async (req, res) => {
   const skills = await Skill.find();
   if (!skills) throw new ApiError(500, "Something went wrong");
-  res.status(200).json(new ApiResponse(skills, "Skills fetched successfully"));
+  res
+    .status(200)
+    .json(new ApiResponse(200, skills, "Skills fetched successfully"));
 });
 
 //* Get Skill *//
@@ -59,25 +61,10 @@ const updateSkill = asyncHandler(async (req, res) => {
   const skill = await Skill.findById(id);
   if (!skill) throw new ApiError(404, "Skill not found");
 
-  if (req.files && req.files.svg) {
-    if (skill.svg && skill.svg.public_id) {
-      const profileImgId = skill.svg.public_id;
-      await cloudinary.uploader.destroy(profileImgId);
-    }
-  }
-
-  const svgFilePath = req.files.svg[0].path;
-  const svgFile = await uploadCloudinary(svgFilePath);
-
   const updatedSkill = await Skill.findByIdAndUpdate(
     id,
     {
-      title: req.body.title,
       proficiency: req.body.proficiency,
-      svg: {
-        url: svgFile.url,
-        public_id: svgFile.public_id,
-      },
     },
     { new: true }
   );

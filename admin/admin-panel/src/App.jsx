@@ -17,6 +17,7 @@ import { getAllMessages } from "./redux/actions/messageAction";
 import { getAllTimeline } from "./redux/actions/timelineAction";
 import { getAllSkills } from "./redux/actions/skillAction";
 import { getAllApplication } from "./redux/actions/applicationAction";
+import { getAllProjects } from "./redux/actions/projectAction";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App = () => {
     dispatch(getAllTimeline());
     dispatch(getAllSkills());
     dispatch(getAllApplication());
+    dispatch(getAllProjects());
   });
 
   return (

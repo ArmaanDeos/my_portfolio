@@ -1,106 +1,106 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const skillSlice = createSlice({
-  name: "skill",
+const projectSlice = createSlice({
+  name: "project",
   initialState: {
     isLoading: false,
     isError: false,
-    skills: [],
+    projects: [],
     message: null,
   },
   reducers: {
-    getSkillsRequest: (state, action) => {
+    getProjectRequest: (state, action) => {
       state.isLoading = true;
-      state.skills = [];
       state.isError = false;
+      state.message = null;
+      state.projects = [];
     },
-    getSkillsSuccess: (state, action) => {
+    getProjectSuccess: (state, action) => {
       state.isLoading = false;
-      state.skills = action.payload;
       state.isError = false;
+      state.projects = action.payload;
     },
-    getSkillsFail: (state, action) => {
+    getProjectFail: (state, action) => {
       state.isLoading = false;
-      state.skills = state.skills;
       state.isError = action.payload;
+      state.message = null;
+      state.projects = state.projects;
     },
-
-    addSkillRequest: (state, action) => {
+    addProjectRequest: (state, action) => {
       state.isLoading = true;
       state.isError = false;
       state.message = null;
     },
-    addSkillSuccess: (state, action) => {
+    addProjectSuccess: (state, action) => {
       state.isLoading = false;
       state.isError = false;
       state.message = action.payload;
     },
-    addSkillFail: (state, action) => {
+    addProjectFail: (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
       state.message = null;
     },
-
-    deleteSkillRequest: (state, action) => {
+    deleteProjectRequest: (state, action) => {
       state.isLoading = true;
       state.isError = false;
       state.message = null;
     },
-    deleteSkillSuccess: (state, action) => {
+    deleteProjectSuccess: (state, action) => {
       state.isLoading = false;
       state.isError = false;
       state.message = action.payload;
     },
-    deleteSkillFail: (state, action) => {
+    deleteProjectFail: (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
       state.message = null;
     },
-    updateSkillRequest: (state, action) => {
+    updateProjectRequest: (state, action) => {
       state.isLoading = true;
       state.isError = false;
       state.message = null;
     },
-    updateSkillSuccess: (state, action) => {
+    updateProjectSuccess: (state, action) => {
       state.isLoading = false;
       state.isError = false;
       state.message = action.payload;
     },
-    updateSkillFail: (state, action) => {
+    updateProjectFail: (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
       state.message = null;
     },
 
-    resetSkillSlice: (state, action) => {
-      state.isError = false;
+    resetProject: (state, action) => {
       state.isLoading = false;
+      state.isError = false;
       state.message = null;
-      state.skills = state.skills;
+      state.projects = state.projects;
     },
 
-    clearSkillError: (state, action) => {
+    clearProjectError: (state, action) => {
       state.isError = false;
-      state.skills = state.skills;
+      state.message = null;
     },
   },
 });
 
 export const {
-  getSkillsRequest,
-  getSkillsSuccess,
-  getSkillsFail,
-  addSkillRequest,
-  addSkillSuccess,
-  addSkillFail,
-  deleteSkillRequest,
-  deleteSkillSuccess,
-  deleteSkillFail,
-  updateSkillRequest,
-  updateSkillSuccess,
-  updateSkillFail,
-  resetSkillSlice,
-  clearSkillError,
-} = skillSlice.actions;
+  getProjectRequest,
+  getProjectSuccess,
+  getProjectFail,
+  addProjectRequest,
+  addProjectSuccess,
+  addProjectFail,
+  deleteProjectRequest,
+  deleteProjectSuccess,
+  deleteProjectFail,
+  updateProjectRequest,
+  updateProjectSuccess,
+  updateProjectFail,
+  resetProject,
+  clearProjectError,
+} = projectSlice.actions;
 
-export default skillSlice.reducer;
+export default projectSlice.reducer;

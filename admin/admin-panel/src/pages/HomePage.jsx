@@ -252,14 +252,14 @@ const HomePage = () => {
                 <Link
                   href="#"
                   className={`flex items-center gap-4 px-2.5 ${
-                    active === "Add Projects"
+                    active === "Add Project"
                       ? "text-accent-foreground "
                       : "text-muted-foreground hover:text-foreground"
                   }`}
-                  onClick={() => setActive("Add Projects")}
+                  onClick={() => setActive("Add Project")}
                 >
                   <FolderGit className="h-5 w-5" />
-                  Add Projects
+                  Add Project
                 </Link>
                 <Link
                   href="#"
@@ -356,7 +356,7 @@ const HomePage = () => {
           switch (active) {
             case "Dashboard":
               return <Dashboard />;
-            case "Add Projects":
+            case "Add Project":
               return <AddProjects />;
             case "Add Skills":
               return <AddSkills />;

@@ -7,6 +7,7 @@ import {
   deleteTimelineFail,
   deleteTimelineRequest,
   deleteTimelineSuccess,
+  resetTimelineSlice,
   timelineFail,
   timelineRequest,
   timelineSuccess,
@@ -62,4 +63,12 @@ export const addNewTimeline = (data) => async (dispatch) => {
   } catch (error) {
     dispatch(addTimelineFail(getErrorMessage(error)));
   }
+};
+
+export const clearTimelineError = () => (dispatch) => {
+  dispatch(clearTimelineErrors());
+};
+
+export const resetTimeline = () => (dispatch) => {
+  dispatch(resetTimelineSlice());
 };

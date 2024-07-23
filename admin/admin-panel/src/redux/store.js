@@ -17,6 +17,7 @@ import messageSlice from "./reducers/messageSlice";
 import timelineSlice from "./reducers/timelineSlice";
 import skillSlice from "./reducers/skillSlice";
 import applicationSlice from "./reducers/applicationSlice";
+import projectSlice from "./reducers/projectSlice";
 
 const persistConfig = {
   key: "root",
@@ -31,6 +32,7 @@ const rootReducers = combineReducers({
   timeline: timelineSlice,
   skill: skillSlice,
   application: applicationSlice,
+  project: projectSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

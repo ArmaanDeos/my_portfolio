@@ -11,6 +11,9 @@ import {
   getSkillsRequest,
   getSkillsSuccess,
   resetSkillSlice,
+  updateSkillFail,
+  updateSkillRequest,
+  updateSkillSuccess,
 } from "../reducers/skillSlice";
 
 export const getAllSkills = () => async (dispatch) => {
@@ -52,6 +55,26 @@ export const deleteSkills = (id) => async (dispatch) => {
     dispatch(clearSkillError());
   } catch (error) {
     dispatch(deleteSkillFail(error.response.data.message));
+  }
+};
+
+export const updateSkills = (id, proficiency) => async (dispatch) => {
+  dispatch(updateSkillRequest());
+  try {
+    const res = await publicRequest.put(
+      `/skills/update/${id}`,
+      { proficiency },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    dispatch(updateSkillSuccess(res.data));
+    dispatch(clearSkillError());
+  } catch (error) {
+    dispatch(updateSkillFail(error.response.data.message));
   }
 };
 
