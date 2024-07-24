@@ -19,7 +19,7 @@ router
     createSkill
   );
 
-router.route("/").get(isAuthorizedUser, getSkill);
+router.route("/").get(getSkill);
 router.route("/delete/:id").delete(isAuthorizedUser, deleteSkill);
 
 router

@@ -34,7 +34,7 @@ router.route("/update/me").put(
   updateUser
 );
 router.route("/update/password").put(isAuthorizedUser, updatePassword);
-router.route("/me/portfolio/:id").get(getUserForPortfolio);
+router.route("/portfolio/me").get(getUserForPortfolio);
 router.route("/forget/password").post(forgetPassword);
 router.route("/reset/password/:token").put(resetPassword);
 

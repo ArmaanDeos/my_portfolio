@@ -19,7 +19,7 @@ router
     addProjects
   );
 
-router.route("/").get(isAuthorizedUser, getProject);
+router.route("/").get(getProject);
 router.route("/single-project/:id").get(isAuthorizedUser, getSingleProject);
 
 router

@@ -26,15 +26,31 @@ if (!fs.existsSync(tempDir)) {
   fs.mkdirSync(tempDir, { recursive: true });
 }
 
-// middlewares
+const allowedOrigins = [process.env.CORS_ORIGIN_1, process.env.CORS_ORIGIN_2];
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // Allow requests with no origin (like mobile apps, curl requests)
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
-    optionsSuccessStatus: 200,
   })
 );
+
+// middlewares
+// app.use(
+//   cors({
+//     origin: process.env.CORS_ORIGIN,
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//     optionsSuccessStatus: 200,
+//   })
+// );
 
 app.use(express.json({ limit: "16kb" }));
 app.use(

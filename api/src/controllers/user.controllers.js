@@ -245,7 +245,8 @@ const updatePassword = asyncHandler(async (req, res) => {
 
 //* Get User for PortFolio *//
 const getUserForPortfolio = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select("-password ");
+  const id = "6654be5f8ee690b82cb28106";
+  const user = await User.findById(id).select("-password ");
   if (!user) throw new ApiError(404, "User not found");
   res.status(200).json({ success: true, user });
 });

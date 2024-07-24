@@ -10,7 +10,7 @@ import { upload } from "../middlewares/multer.middlewares.js";
 
 const router = express.Router();
 
-router.route("/").get(isAuthorizedUser, getApplications);
+router.route("/").get(getApplications);
 router.route("/delete/:id").delete(isAuthorizedUser, deleteApplication);
 router
   .route("/create")
