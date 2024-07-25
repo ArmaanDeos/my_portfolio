@@ -27,7 +27,6 @@ export const loginUser = (user) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(res.data);
     dispatch(loginSuccess(res.data));
     dispatch(clearErrors());
   } catch (error) {
@@ -99,7 +98,8 @@ export const updateProfile = (data) => async (dispatch) => {
     dispatch(updateProfileSuccess(res.data));
     dispatch(clearErrors());
   } catch (error) {
-    dispatch(updateProfileFail(error.res.data.message));
+    const errorMessage = error.response?.data?.message || "An error occurred";
+    dispatch(updateProfileFail(errorMessage));
   }
 };
 

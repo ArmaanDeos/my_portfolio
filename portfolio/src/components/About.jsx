@@ -8,7 +8,7 @@ const About = () => {
     const getMyProfile = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:1700/api/v1/user/portfolio/me`,
+          `https://my-portfolio-d7ai.onrender.com/api/v1/user/portfolio/me`,
           {
             withCredentials: true,
             headers: {

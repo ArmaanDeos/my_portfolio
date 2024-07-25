@@ -75,7 +75,7 @@ const Dashboard = () => {
               <Card className="sm:col-span-1">
                 <CardHeader className="pb-3">
                   <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    {user && user.user.aboutMe}
+                    {user && user.user && user.user.aboutMe}
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>

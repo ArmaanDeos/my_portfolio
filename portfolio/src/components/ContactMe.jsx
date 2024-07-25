@@ -25,7 +25,7 @@ const ContactMe = () => {
     setLoading(true);
     await axios
       .post(
-        "http://localhost:1700/api/v1/message/send",
+        "https://my-portfolio-d7ai.onrender.com/api/v1/message/send",
         {
           senderName,
           subject,

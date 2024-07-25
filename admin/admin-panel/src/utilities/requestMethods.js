@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // Base URL for the API
-const BaseURL = "http://localhost:1700/api/v1";
+// const BaseURL = "http://localhost:1700/api/v1";
+const BaseURL = "https://my-portfolio-d7ai.onrender.com/api/v1";
 
 // Function to get the access token from local storage
 const getToken = () => {

@@ -14,12 +14,15 @@ const Skills = () => {
   useEffect(() => {
     const getMySkills = async () => {
       try {
-        const res = await axios.get(`http://localhost:1700/api/v1/skills`, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await axios.get(
+          `https://my-portfolio-d7ai.onrender.com/api/v1/skills`,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         setSkills(res.data);
       } catch (error) {
         console.error("Error fetching the skills", error);

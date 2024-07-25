@@ -7,12 +7,15 @@ const Timeline = () => {
   useEffect(() => {
     const getMyTimeline = async () => {
       try {
-        const res = await axios.get(`http://localhost:1700/api/v1/timeline`, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await axios.get(
+          `https://my-portfolio-d7ai.onrender.com/api/v1/timeline`,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         setTimeline(res.data);
       } catch (error) {
         console.error("Error fetching the timeline", error);
